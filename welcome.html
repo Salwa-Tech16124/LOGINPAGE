@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="welcome.css" />
+  <title>My Secret Keeper</title>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>Welcome, Salwa 👋</h2>
+    </div>
+
+    <div class="chat-box" id="chat-box">
+      
+    </div>
+
+    <div class="chat-input">
+      <button class="emoji-btn" id="emojiBtn">😊</button>
+      <input type="text" id="messageInput" placeholder="Type a message..." />
+      <button id="sendBtn">Send</button>
+    </div>
+
+    
+    <div class="emoji-picker" id="emojiPicker">
+      <span>😀</span><span>😁</span><span>😂</span><span>🤣</span><span>😊</span>
+      <span>😍</span><span>😎</span><span>😭</span><span>😡</span><span>❤️</span>
+      <span>👍</span><span>🎉</span><span>🥰</span><span>😅</span><span>🔥</span>
+    </div>
+  </div>
+
+  <script>
+    const sendBtn = document.getElementById("sendBtn");
+    const messageInput = document.getElementById("messageInput");
+    const chatBox = document.getElementById("chat-box");
+    const emojiBtn = document.getElementById("emojiBtn");
+    const emojiPicker = document.getElementById("emojiPicker");
+
+    // meassgae send krene ka function
+    sendBtn.addEventListener("click", () => {
+      const msg = messageInput.value.trim();
+      if (msg) {
+        const message = document.createElement("div");
+        message.className = "message sent";
+        message.textContent = msg;
+        chatBox.appendChild(message);
+        messageInput.value = "";
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+    });
+
+    // toggle emoji picker visibility..
+    emojiBtn.addEventListener("click", () => {
+      emojiPicker.classList.toggle("show");
+    });
+
+    // add emoji to input when clicked..
+    emojiPicker.addEventListener("click", (e) => {
+      if (e.target.tagName === "SPAN") {
+        messageInput.value += e.target.textContent;
+        messageInput.focus();
+      }
+    });
+
+    // close emoji picker when clicking outside..
+    document.addEventListener("click", (e) => {
+      if (!emojiPicker.contains(e.target) && e.target !== emojiBtn) {
+        emojiPicker.classList.remove("show");
+      }
+    });
+  </script>
+</body>
+</html>
